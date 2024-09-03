@@ -1,34 +1,39 @@
-import express, {Express, Request, Response} from 'express';
+import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 
+// Importar la configuración de la base de datos
+import db from './config/db';
+// Importar los enrutadores de las rutas
+import { router as userRouter } from './routes/userRoutes';
+import { router as postRouter } from './routes/postRoutes';
 
-import {db} from "./config/db"
-import {router as user } from "./routes/user";
-import {router} from "./routes/user";
-
+// Configurar dotenv
 dotenv.config();
 
 const app: Express = express();
 
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+// Middleware para procesar JSON y URL encoded
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const port = process.env.PORT || 3000;
 
-//Cuando llegue un slash, por el metodo get
-//Haga, ejectue esta funcion
-app.get('/', (req: Request, res: Response) =>{
+// Ruta de prueba
+app.get('/', (req: Request, res: Response) => {
     res.send('Hello World');
-}); 
+});
 
-app.use('/api/posts', router);
-app.use('/api/users', user);
+// Configuración de rutas
+app.use('/api/posts', postRouter);
+app.use('/api/users', userRouter);
 
-//Escuche por este puerto, y apenas termine, imprima
-// Si la db se conecta, entonces crea la app, escucha
-db.then(()=> {
-    app.listen(port, () =>{
-        console.log(`Server is running on port ${port}`);
+// Conexión a la base de datos y arranque del servidor
+db
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Server is running on port ${port}`);
+        });
     })
-})
-    
+    .catch((err) => {
+        console.error('Failed to connect to the database:', err);
+    });
