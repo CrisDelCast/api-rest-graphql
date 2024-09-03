@@ -1,11 +1,10 @@
 import {object, string, TypeOf } from 'zod'
 
-const createCommentSch = object({
-    //content: string()
-    //parent: , //optional
-
-})  
+const createCommentSchema = object({
+    content: string({ required_error: "Content is required" }),
+    parent: string(),  //
+});
 
 //update and delete
 
-export default createCommentSch
+export default createCommentSchema
