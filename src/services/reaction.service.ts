@@ -1,21 +1,57 @@
-// import Reaction, { ReactionDocument } from "../models/reaction.model";
-// import { createReactionSchema } from "../schemas/reaction.schema";
+import ReactionModel, {ReactionDocument, ReactionInput} from "../models/reactionModel";
 
-// class ReactionService {
-//     // Método para crear una nueva reacción
-//     public async create(data: createReactionSchema & { user: string }): Promise<ReactionDocument> {
-//         try {
-//             const reaction = await Reaction.create(data);
-//             return reaction;
-//         } catch (error) {
-//             // Asegurarse de que error es de tipo Error
-//             if (error instanceof Error) {
-//                 throw new Error("Error creating reaction: " + error.message);
-//             }
-//             throw new Error("Unknown error occurred while creating reaction");
-//         }
-//     }
+class ReactionService{
+    
+    public async create(reactionInput: ReactionInput): Promise<ReactionDocument>{
+        try {
+            const reaction = await ReactionModel.create(reactionInput);
+            
+            return reaction
+        } catch (error) {
+            throw error;
+        } 
+    }
 
-// }
+    public async findAll(): Promise<ReactionDocument[]>{
+        try {
+            const users = await ReactionModel.find();
+            return users
+        } catch (error) {
+            throw error;
+        }   
+    }
 
-// export default new ReactionService();
+    public async findById(id: string): Promise<ReactionDocument | null>{
+        try {
+            const user = await ReactionModel.findById(id);
+            return user
+        } catch (error) {
+            throw error;
+        }   
+    }
+
+    public async update(id: string, ReactionInput: ReactionInput): Promise<ReactionDocument | null>{
+        try {
+            const user: ReactionDocument | null = await ReactionModel.findOneAndUpdate
+            ({_id: id}, ReactionInput, {returnOriginal: false});
+            //retunr original false, means return the modified one
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    public async delete(id: string): Promise<ReactionDocument | null>{
+        try {
+            const user: ReactionDocument | null = await ReactionModel.findOneAndDelete
+            ({_id: id});
+            //retunr original false, means return the modified one
+            return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+}
+
+export default new ReactionService();
