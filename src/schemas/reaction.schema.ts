@@ -1,16 +1,13 @@
-import {object, string, TypeOf } from 'zod'
+import {z, object, string, TypeOf } from 'zod'
 
-const createReactionSch = object({
-    //content: string(["Like", "Love it", "Dislike"]  ),
-    parentComment: string({required_error: "Comment is requeried"}),
-
-})  
-
-//delete
-const deleteReactionSch = object({
-    
-})
+const createReactionSchema = object({
+    type: string({ required_error: "Reaction type is required" })
+    .refine((val) => ["Like", "Love it", "Dislike"].includes(val), {
+        message: "Invalid reaction type",
+    }),
+    comment: string({ required_error: "Comment is required" }),
+});
 
 //update must be delete it and allow to put another one
 
-export default createReactionSch
+export default createReactionSchema
