@@ -19,10 +19,7 @@ class userController{
     //async and await bc the promise that s
     public async create(req: Request, res: Response ) {
         try {
-            //Because req.body is an "any" we need to cast it, how? with "as". e.g as UserInput
-            // const userExist: UserDocument | null = await userService.findByEmail(req.params.email);
-            // if(userExist)
-            //     res.status(400).json({message: "User already exists"});
+
             const user: UserDocument = await userService.create(req.body as UserInput)
             res.status(201).json(user);
             
