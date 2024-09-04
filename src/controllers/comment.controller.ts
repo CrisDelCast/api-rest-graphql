@@ -4,16 +4,21 @@ import commentService from '../services/comment.service'
 
 class commentController{
     
-    public async create(req: Request, res: Response ) {
+    public async create(req: Request, res: Response) {
         try {
-            const comment: CommentDocument = await commentService.create(req.body as CommentInput)
+            const userId = req.body.loggedUser.id; // Asignar el ID del usuario desde el objeto loggedUser
+            const commentData: CommentInput = {
+                content: req.body.content,
+                user: userId, // Usar el ID del usuario aquí
+                parent: req.body.parent
+            };
+    
+            const comment: CommentDocument = await commentService.create(commentData);
             res.status(201).json(comment);
-            
         } catch (error) {
-            if (error instanceof ReferenceError)
-
-                //? should be the same?
-                res.status(400).json({message: "Comment already exists"}); 
+            if (error instanceof ReferenceError) {
+                res.status(400).json({ message: "Comment already exists" });
+            }
             res.status(500).json(error);
         }
     }
