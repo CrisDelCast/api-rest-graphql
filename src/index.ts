@@ -45,3 +45,8 @@ db
     .catch((err) => {
         console.error('Failed to connect to the database:', err);
     });
+
+    module.exports = (_req: any, res: { send: (arg0: string) => void; }) => {
+        res.send('Hello from Vercel!');
+    };
+    
