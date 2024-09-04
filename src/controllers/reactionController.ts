@@ -22,15 +22,6 @@ class reactionController {
         }
       }
 
-  public async getAll(req: Request, res: Response) {
-    try {
-      const reactions: ReactionDocument[] = await reactionService.findAll();
-      res.json(reactions);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  }
-
   public async get(req: Request, res: Response) {
     try {
       const reaction: ReactionDocument | null = await reactionService.findById(
@@ -47,22 +38,7 @@ class reactionController {
     }
   }
 
-  public async update(req: Request, res: Response) {
-    try {
-      const reaction: ReactionDocument | null = await reactionService.update(
-        req.params.id,
-        req.body as ReactionInput
-      );
-      if (!reaction) {
-        res
-          .status(404)
-          .json({ message: `USer with id: ${req.params.id} not found` });
-      }
-      res.json(reaction);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  }
+
 
   public async delete(req: Request, res: Response) {
     try {

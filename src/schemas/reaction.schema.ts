@@ -1,13 +1,21 @@
-import {z, object, string, TypeOf } from 'zod'
+import { object, string, TypeOf } from 'zod';
 
+// Definimos el esquema de validación para la creación de reacciones
 const createReactionSchema = object({
     type: string({ required_error: "Reaction type is required" })
-    .refine((val) => ["Like", "Love it", "Dislike"].includes(val), {
-        message: "Invalid reaction type",
-    }),
-    comment: string({ required_error: "Comment is required" }),
+        .refine((val) => ["like", "love", "disagree"].includes(val), {
+            message: "Invalid reaction type",
+        }),
+     comment: string({ required_error: "Comment ID is required" }),
 });
 
-//update must be delete it and allow to put another one
+// Definimos el esquema de validación para eliminar una reacción
+const deleteReactionSchema = object({
+    id: string({ required_error: "Reaction ID is required" }),
+});
 
-export default createReactionSchema
+// Exportamos los tipos para su uso en los controladores o servicios
+export type CreateReactionInput = TypeOf<typeof createReactionSchema>;
+export type DeleteReactionInput = TypeOf<typeof deleteReactionSchema>;
+
+export { createReactionSchema, deleteReactionSchema };

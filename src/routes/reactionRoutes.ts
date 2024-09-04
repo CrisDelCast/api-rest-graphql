@@ -1,6 +1,6 @@
 import express from "express";
-import ReactionController from "../controllers/reaction.controller";
-import validateSchema from "../middlewares/validate.schema";
+import ReactionController from "../controllers/reaction.controllers";
+import validateSchema from "../middlewares/validateSchema";
 import auth from "../middlewares/auth";
 import {
   createReactionSchema,

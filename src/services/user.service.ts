@@ -1,4 +1,4 @@
-// Due is exported as default (default User) we can put any name on it like "UserModel"
+
 import UserModel, {UserDocument, UserInput} from "../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

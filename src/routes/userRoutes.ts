@@ -4,12 +4,13 @@ import validateSchema from "../middlewares/validateSchema";
 import userSchema from "../schemas/user.schema";
 import loginSchema from "../schemas/login.schema";
 import auth from "../middlewares/auth";
+
 export const router = express.Router();
 
 router.post("/", validateSchema(userSchema), userController.create);
-router.post("/", validateSchema(loginSchema), userController.login);
+router.post("/login", validateSchema(loginSchema), userController.login);
 
-router.get("/", userController.getAll);
+router.get("/all", userController.getAll);
 
 router.get("/:profile", auth, userController.get);
 

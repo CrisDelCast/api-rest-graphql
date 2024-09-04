@@ -1,0 +1,4 @@
+MONGO_URL=mongodb+srv://juanlora1:<examplettr>@compunet3-nodejs.gldis.mongodb.net/?retryWrites=true&w=majority&appName=compunet3-nodejs
+retryWrites = true&w=majority&appName=Cluster0
+PORT=3000
+JWT_SECRET = Secretsito3295832
