@@ -1,6 +1,10 @@
 # API-Node-SocialMedia
-A tiny social media API RESTful with Node.js, that allows you to publish comments and reactions
+API RESTful with Node.js
 
+Computación en internet 3
+- Juan Diego Lora
+- Santiago Prado
+- Cristian del Castillo
 
 ## Guía de Configuración y Ejecución del Proyecto
 
